@@ -1,0 +1,83 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "othertales-tools"
+version = "1.0.0"
+description = "OtherTales Unified Tools Server"
+readme = "README.md"
+authors = [
+    {name = "OtherTales Team", email = "tools@example.com"}
+]
+requires-python = ">=3.9"
+dependencies = [
+    "aiohttp>=3.8.0",
+    "beautifulsoup4>=4.10.0",
+    "boto3>=1.24.0",
+    "fastapi>=0.88.0",
+    "gitpython>=3.1.30",
+    "networkx>=2.8.0",
+    "numpy>=1.23.0",
+    "playwright>=1.28.0",
+    "pydantic>=1.10.0",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv>=0.20.0",
+    "requests>=2.28.0",
+    "sentence-transformers>=2.2.0",
+    "uvicorn>=0.20.0",
+    "weasyprint>=57.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "flake8",
+    "mypy",
+    "pylint",
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.20.0",
+]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+follow_imports = "silent"
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = ["bs4", "boto3", "aiohttp", "playwright.*", "networkx"]
+ignore_missing_imports = true
+
+[tool.pylance]
+reportMissingImports = "warning"
+reportMissingTypeStubs = false
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203", "W503"]
+exclude = [".git", "__pycache__", "build", "dist"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pylint]
+disable = [
+    "C0111",  # missing-docstring
+    "C0103",  # invalid-name
+    "C0303",  # trailing-whitespace
+    "W0718",  # broad-exception-caught
+    "W1203",  # logging-fstring-interpolation
+    "C0301",  # line-too-long
+]
+max-line-length = 100
+extension-pkg-whitelist = ["pydantic"]
+good-names = ["i", "j", "k", "ex", "Run", "_", "id", "f"]
